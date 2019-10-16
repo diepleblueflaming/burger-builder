@@ -5,6 +5,7 @@
  */
 
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import './BurgerIngredients.scss';
 import {BurgerIngredientType} from "../../../constants/BurgerIngredients";
 
@@ -12,6 +13,10 @@ export class BurgerIngredients extends Component {
   constructor(props) {
     super(props);
   }
+
+  static propTypes = {
+    type: PropTypes.string.isRequired
+  };
 
   render() {
     let element = null;
@@ -44,3 +49,4 @@ export class BurgerIngredients extends Component {
     );
   }
 }
+
