@@ -12,3 +12,10 @@ export const BurgerIngredientType = {
   SALAD: 'SALAD',
   BACON: 'BACON'
 };
+
+export const BurgerIngredientPrice = {
+  MEAT: 0.5,
+  CHEESE: 0.6,
+  SALAD: 0.7,
+  BACON: 0.3
+};

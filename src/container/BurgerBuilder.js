@@ -8,6 +8,7 @@ import React, {Component, Fragment} from 'react';
 import {Burger} from "../component/Burger/Burger/Burger";
 import {BurgerIngredientType} from "../constants/BurgerIngredients";
 import {BuildControls} from "../component/BuildControls/BuildControls";
+import {BurgerIngredientPrice} from "../constants/BurgerIngredients";
 
 export class BurgerBuilder extends Component {
   constructor(props) {
@@ -20,14 +21,71 @@ export class BurgerBuilder extends Component {
       [BurgerIngredientType.MEAT]: 3,
       [BurgerIngredientType.BACON]: 1,
       [BurgerIngredientType.SALAD]: 2
-    }
+    },
+    totalPrice: 0
   };
 
+
+  componentDidMount() {
+    this.setState({
+      totalPrice: this.calculateBurgerPrice()
+    });
+  }
+
+  calculateBurgerPrice = () => {
+    let totalPrice = 0;
+    for (let ign in this.state.ingredients) {
+      if (this.state.ingredients.hasOwnProperty(ign)) {
+        totalPrice += this.state.ingredients[ign] * BurgerIngredientPrice[ign];
+      }
+    }
+    return totalPrice;
+  };
+
+  addBurgerIngredients = (type) => {
+    const newBurgerIngredients = {...this.state.ingredients};
+    newBurgerIngredients[type] = newBurgerIngredients[type] + 1;
+    const newTotalPrice = (this.state.totalPrice + BurgerIngredientPrice[type]).toFixed(2);
+
+    this.setState({
+      ingredients: newBurgerIngredients,
+      totalPrice: parseFloat(newTotalPrice)
+    });
+  };
+
+
+  removeBurgerIngredients = (type) => {
+    if (!this.state.ingredients[type]) {
+      return;
+    }
+    const newBurgerIngredients = {...this.state.ingredients};
+    newBurgerIngredients[type] = newBurgerIngredients[type] - 1;
+    const newTotalPrice = (this.state.totalPrice - BurgerIngredientPrice[type]).toFixed(2);
+
+    this.setState({
+      ingredients: newBurgerIngredients,
+      totalPrice: parseFloat(newTotalPrice)
+    });
+  };
+
+
   render() {
+    const disableInfo = {...this.state.ingredients};
+
+    for (let ign in disableInfo) {
+      if (this.state.ingredients.hasOwnProperty(ign)) {
+        disableInfo[ign] = this.state.ingredients[ign] <= 0;
+      }
+    }
     return (
       <Fragment>
         <Burger ingredients={this.state.ingredients}/>
-        <BuildControls />
+        <BuildControls
+          totalPrice={this.state.totalPrice}
+          added={this.addBurgerIngredients}
+          removed={this.removeBurgerIngredients}
+          disableInfo={disableInfo}
+        />
       </Fragment>
     );
   }

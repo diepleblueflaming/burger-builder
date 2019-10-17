@@ -11,13 +11,16 @@ export const BuildControl = (props) => {
   return (
     <div className="BuildControl">
       <label className="Label">{props.label}</label>
-      <button className="Less">Less</button>
-      <button className="More">More</button>
+      <button className="Less" onClick={props.removed} disabled={props.disabled}>Less</button>
+      <button className="More" onClick={props.added}>More</button>
     </div>
   );
 };
 
 
 BuildControl.propTypes = {
-  label: PropTypes.string.isRequired
+  label: PropTypes.string.isRequired,
+  added: PropTypes.func.isRequired,
+  removed: PropTypes.func.isRequired,
+  disabled: PropTypes.bool.isRequired
 };
