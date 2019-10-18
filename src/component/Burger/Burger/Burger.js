@@ -20,7 +20,7 @@ export const Burger = (props) => {
     }).reduce((acc,curr) => [...acc, ...curr], []);
 
   if (!transformedIngredients.length) {
-    transformedIngredients = <h1>Please add some burger ingredients</h1>
+    transformedIngredients = <h4 style={{textAlign: 'center'}}>Please add some burger ingredients</h4>
   }
   return (
     <div className="Burger">

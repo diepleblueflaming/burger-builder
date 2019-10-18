@@ -39,7 +39,11 @@ export const BuildControls = (props) => {
             disabled={props.disableInfo[ctrl.type]}
           />)
       }
-      <button className="OrderButton" disabled={props.totalPrice <= 0}>ORDER NOW</button>
+      <button
+        className="OrderButton"
+        disabled={props.totalPrice <= 0}
+        onClick={props.ordered}
+      >ORDER NOW</button>
     </div>
   );
 };
@@ -48,5 +52,6 @@ BuildControls.propTypes = {
   totalPrice: PropTypes.number.isRequired,
   added: PropTypes.func.isRequired,
   removed: PropTypes.func.isRequired,
-  disableInfo: PropTypes.object.isRequired
+  disableInfo: PropTypes.object.isRequired,
+  ordered: PropTypes.func.isRequired
 };

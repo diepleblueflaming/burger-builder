@@ -5,8 +5,8 @@
 */
 .Burger {
   width: 45%;
-  height: calc(100vh - 317px);
-  margin: auto;
+  height: calc(100vh - 317px - 56px);
+  margin: 56px auto 0 auto;
   overflow-y: scroll;
   font-weight: bold;
   font-size: 1.2rem;
